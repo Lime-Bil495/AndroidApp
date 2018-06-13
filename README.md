@@ -1,5 +1,5 @@
 # AndroidApp
-This repository includes the Android part of Calender application.  <br><br>
+This repository includes the Android part of Calendar application.  <br><br>
 
 <h2 align="center"> BACKLOG and USER STORIES</h2>
 
