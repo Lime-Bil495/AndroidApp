@@ -8,14 +8,6 @@ This repository includes the Android part of Calendar application.  <br><br>
     <th>Story</th>
     <th>Sprint</th>
   </tr>
-  <tr>
-    <td>As a user, I want to be able to login with my unique username and password.</td>
-    <td>Sprint 1</td>
-  </tr>
-   <tr>
-    <td>As a user, I want to be able to sign up.</td>
-    <td>Sprint 1</td>
-  </tr>
    <tr>
     <td>As a user, I want to be able to view the calendar and appointments on my browser.</td>
     <td>Sprint 1</td>
