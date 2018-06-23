@@ -17,28 +17,20 @@ This repository includes the Android part of Calendar application.  <br><br>
     <td>Sprint 1</td>
   </tr>
    <tr>
-    <td>As a user, I want to be able to search my appointments with a keyword so that I can find an appointment easily on my browser.</td>
-    <td>Sprint 1</td>
-  </tr>
- <tr>
-    <td>As a user, I want to be able to search my appointments with a keyword so that I can find an appointment easily on my mobile phone.</td>
-    <td>Sprint 1</td>
-  </tr>
-   <tr>
     <td>As a user, I want to be able to create appointments on my browser.</td>
-    <td>Sprint 2</td>
+    <td>Sprint 1</td>
   </tr>
    <tr>
     <td>As a user, I want to be able to create appointments on my mobile phone.</td>
-    <td>Sprint 2</td>
+    <td>Sprint 1</td>
   </tr>
    <tr>
     <td>As a user, I want to be able to view created appointments on my browser.</td>
-    <td>Sprint 2</td>
+    <td>Sprint 1</td>
   </tr>
     <tr>
     <td>As a user, I want to be able to view created appointments on my mobile phone.</td>
-    <td>Sprint 2</td>
+    <td>Sprint 1</td>
   </tr>
     <tr>
     <td>As a user, I want to be able to delete created appointments on my browser.</td>
@@ -56,8 +48,12 @@ This repository includes the Android part of Calendar application.  <br><br>
     <td>As a user, I want to be able to change dates or details of created appointments on my mobile phone.</td>
     <td>Sprint 2</td>
   </tr>
-    <tr>
-    <td>As a user, I want to be able to view the created appointments on my browser.</td>
+   <tr>
+    <td>As a user, I want to be able to search my appointments with a keyword so that I can find an appointment easily on my browser.</td>
+    <td>Sprint 2</td>
+  </tr>
+ <tr>
+    <td>As a user, I want to be able to search my appointments with a keyword so that I can find an appointment easily on my mobile phone.</td>
     <td>Sprint 2</td>
   </tr>
     <tr>
