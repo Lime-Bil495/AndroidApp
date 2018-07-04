@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         initialize();
         listEventsToDate();
         addEvent();
+        help();
     }
 
     private void initialize() {
@@ -62,7 +63,25 @@ public class MainActivity extends AppCompatActivity {
         help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                LayoutInflater layoutInflater = getLayoutInflater();
+                view = layoutInflater.inflate(R.layout.help, null);
 
+                Button exit = view.findViewById(R.id.exit_help);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setView(view);
+                builder.setCancelable(true);
+
+                final AlertDialog dialog = builder.create();
+
+                dialog.show();
+
+                exit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                    }
+                });
             }
         });
     }
@@ -70,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     private void addEvent() {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, final int i, final int i1, final int i2) {
                 addEvent.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -84,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
                         String description = view.findViewById(R.id.description).toString();
                         TextView date = view.findViewById(R.id.date);
 
+                        date.setText(i2+"/"+i1+"/"+i);
                         //query(title, description, i2+"/"+i1+"/"+i")
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
