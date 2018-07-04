@@ -33,11 +33,11 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         initialize();
-        dateChange();
+        listEventsToDate();
         addEvent();
     }
 
-    private void initialize(){
+    private void initialize() {
         calendar = findViewById(R.id.calendar);
         event = findViewById(R.id.events);
         events = new ArrayList<>();
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         help = findViewById(R.id.help);
     }
 
-    private void dateChange(){
+    private void listEventsToDate() {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
@@ -68,41 +68,42 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addEvent() {
-        addEvent.setOnClickListener(new View.OnClickListener() {
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onClick(View view) {
-                LayoutInflater layoutInflater = getLayoutInflater();
-                view = layoutInflater.inflate(R.layout.add_event, null);
-
-                Button add = view.findViewById(R.id.add);
-                Button cancel = view.findViewById(R.id.cancel);
-                final TextView date = view.findViewById(R.id.date);
-
-                date.setText(Epoch2DateString(calendar.getDate(), "yyyy-MM-dd hh:mm:ss a"));
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setView(view);
-                builder.setCancelable(true);
-
-                final AlertDialog dialog = builder.create();
-
-                dialog.show();
-
-                cancel.setOnClickListener(new View.OnClickListener() {
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+                addEvent.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        dialog.cancel();
+                        LayoutInflater layoutInflater = getLayoutInflater();
+                        view = layoutInflater.inflate(R.layout.add_event, null);
+
+                        Button add = view.findViewById(R.id.add);
+                        Button cancel = view.findViewById(R.id.cancel);
+
+                        String title = view.findViewById(R.id.title).toString();
+                        String description = view.findViewById(R.id.description).toString();
+                        TextView date = view.findViewById(R.id.date);
+
+                        //query(title, description, i2+"/"+i1+"/"+i")
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setView(view);
+                        builder.setCancelable(true);
+
+                        final AlertDialog dialog = builder.create();
+
+                        dialog.show();
+
+                        cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialog.cancel();
+                            }
+                        });
                     }
                 });
-
             }
         });
-
     }
 
-    public static String Epoch2DateString(long epochSeconds, String formatString) {
-        Date updatedate = new Date(epochSeconds * 1000);
-        SimpleDateFormat format = new SimpleDateFormat(formatString);
-        return format.format(updatedate);
-    }
 }
