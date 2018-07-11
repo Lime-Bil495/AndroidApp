@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 // query(i2,i1,i)
                 // it returns a list of events for selected date
                 // events = result;
-                eventsAdapter = new EventsAdapter(events, getApplicationContext());
+                eventsAdapter = new EventsAdapter(events, getApplicationContext(), MainActivity.this);
                 event.setAdapter(eventsAdapter);
             }
         });
@@ -99,12 +100,13 @@ public class MainActivity extends AppCompatActivity {
                         Button add = view.findViewById(R.id.add);
                         Button cancel = view.findViewById(R.id.cancel);
 
-                        String title = view.findViewById(R.id.title).toString();
-                        String description = view.findViewById(R.id.description).toString();
+                        final String title = view.findViewById(R.id.title).toString();
+                        final String description = view.findViewById(R.id.description).toString();
                         TextView date = view.findViewById(R.id.date);
 
                         date.setText(i2+"/"+i1+"/"+i);
-                        //query(title, description, i2+"/"+i1+"/"+i")
+
+
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                         builder.setView(view);
@@ -113,6 +115,15 @@ public class MainActivity extends AppCompatActivity {
                         final AlertDialog dialog = builder.create();
 
                         dialog.show();
+
+                        add.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                //query(title, description, i2+"/"+i1+"/"+i")
+                                dialog.cancel();
+                                Toast.makeText(getApplicationContext(), "Appointment created", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
                         cancel.setOnClickListener(new View.OnClickListener() {
                             @Override
