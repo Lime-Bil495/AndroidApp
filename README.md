@@ -1,5 +1,5 @@
 # AndroidApp
-This repository includes the Ruby on Rails Server And Web part of Calendar application.  <br><br>
+This repository includes the Android part of Calendar application.  <br><br>
 
 To-dos on Sprint 1
 - Rails server setup <br>
