@@ -13,9 +13,27 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:text="Are you sure you want to delete this appointment?"
+        android:text="Fill the spaces to update event"
         android:textAlignment="center"
         android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        android:hint="Event title" />
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="Description" />
 
     <TextView
         android:id="@+id/date"
@@ -34,16 +52,16 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/delete"
+            android:id="@+id/update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#FAFAFA"
-            android:text="Delete"
+            android:text="Update"
             android:textColor="#2196F3"
             android:textSize="15sp" />
 
         <Button
-            android:id="@+id/cancel2"
+            android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#FAFAFA"
