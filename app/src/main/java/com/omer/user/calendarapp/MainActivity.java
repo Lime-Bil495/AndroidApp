@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, final int i, final int i1, final int i2) {
-                int i_m = i1 + 1;
+                final int i_m = i1 + 1;
                 Log.i("date", i2 + "/" + i_m + "/" + i);
                 listAppointments(i2 + "/" + i_m + "/" + i);
                 addEvent.setOnClickListener(new View.OnClickListener() {
@@ -62,9 +62,10 @@ public class MainActivity extends AppCompatActivity {
                         Button add = view.findViewById(R.id.add);
                         Button cancel = view.findViewById(R.id.cancel);
 
-                        final String title = view.findViewById(R.id.title).toString();
-                        final String description = view.findViewById(R.id.description).toString();
-                        TextView date = view.findViewById(R.id.date);
+                        final EditText title = view.findViewById(R.id.title);
+                        final EditText description = view.findViewById(R.id.description);
+
+                        final TextView date = view.findViewById(R.id.date);
 
                         date.setText(i2+"/"+i1+"/"+i);
 
@@ -79,9 +80,9 @@ public class MainActivity extends AppCompatActivity {
                         add.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                //query(title, description, i2+"/"+i1+"/"+i")
+                                addAppointment(title.getText().toString(), description.getText().toString(), i2+"/"+i_m+"/"+i);
+                                listAppointments(i2 + "/" + i_m + "/" + i);
                                 dialog.cancel();
-                                Toast.makeText(getApplicationContext(), "Appointment created", Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -153,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
                 if(response.isSuccessful()) {
                     appointments = response.body();
-                    Log.i("date", appointments.toString() + " exists");
                     fillList();
                 }
             }
@@ -165,5 +165,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void addAppointment(String title, String description, String date) {
+        Call<Appointment> x = ManagerAll.getInstance().add_appointment(title, description, date);
+        x.enqueue(new Callback<Appointment>() {
+            @Override
+            public void onResponse(Call<Appointment> call, Response<Appointment> response) {
+                if(response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Appointment created", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    Log.i("date", "Error creating..");
+            }
 
+            @Override
+            public void onFailure(Call<Appointment> call, Throwable t) {
+                Log.i("date", t.getMessage().toString());
+            }
+        });
+    }
 }
