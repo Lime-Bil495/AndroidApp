@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -135,7 +136,8 @@ public class AppointmentAdapter extends BaseAdapter {
 
         Button update = view.findViewById(R.id.update);
         Button cancel = view.findViewById(R.id.cancel);
-
+        final EditText title = view.findViewById(R.id.title);
+        final EditText desc = view.findViewById(R.id.description);
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(view);
         builder.setCancelable(true);
@@ -145,6 +147,7 @@ public class AppointmentAdapter extends BaseAdapter {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                updateAppointment(appointments.get(i).getId(), title.getText().toString() , desc.getText().toString());
                 dialog.cancel();
             }
         });
@@ -152,7 +155,6 @@ public class AppointmentAdapter extends BaseAdapter {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // necessary query
                 dialog.cancel();
             }
         });
