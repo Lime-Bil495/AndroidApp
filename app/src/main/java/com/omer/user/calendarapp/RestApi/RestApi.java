@@ -28,4 +28,8 @@ public interface RestApi {
     @FormUrlEncoded
     @POST("delete_appointment.php")
     Call<Appointment> delete_appointment(@Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("send_notification.php")
+    Call<Appointment> send_notification(@Field("message") String message);
 }

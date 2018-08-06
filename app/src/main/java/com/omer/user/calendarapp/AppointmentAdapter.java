@@ -72,6 +72,7 @@ public class AppointmentAdapter extends BaseAdapter {
 
         Button update = view.findViewById(R.id.update);
         Button delete = view.findViewById(R.id.delete);
+        Button cancel = view.findViewById(R.id.cancel);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(view);
@@ -95,6 +96,12 @@ public class AppointmentAdapter extends BaseAdapter {
             }
         });
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
         dialog.show();
     }
 
@@ -148,6 +155,7 @@ public class AppointmentAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 updateAppointment(appointments.get(i).getId(), title.getText().toString() , desc.getText().toString());
+                Log.i("date", appointments.get(i).getStart_date()+"!!!");
                 dialog.cancel();
             }
         });
@@ -193,6 +201,23 @@ public class AppointmentAdapter extends BaseAdapter {
             @Override
             public void onFailure(Call<Appointment> call, Throwable t) {
 
+            }
+        });
+    }
+
+    private void listAppointments(String date){
+        Call<List<Appointment>> x = ManagerAll.getInstance().all_appointments(date);
+        x.enqueue(new Callback<List<Appointment>>() {
+            @Override
+            public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
+                if(response.isSuccessful()) {
+                    appointments = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Appointment>> call, Throwable t) {
+                Log.i("date", t.getMessage().toString());
             }
         });
     }

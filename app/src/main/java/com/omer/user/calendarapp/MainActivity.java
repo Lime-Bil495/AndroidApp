@@ -1,6 +1,7 @@
 package com.omer.user.calendarapp;
 
 import android.app.AlertDialog;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
                         final TextView date = view.findViewById(R.id.date);
 
-                        date.setText(i2+"/"+i1+"/"+i);
+                        date.setText(i2+"/"+i_m+"/"+i);
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                         builder.setView(view);
@@ -172,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Appointment> call, Response<Appointment> response) {
                 if(response.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Appointment created", Toast.LENGTH_SHORT).show();
+                    send_notification("added");
                 }
                 else
                     Log.i("date", "Error creating..");
@@ -180,6 +182,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Appointment> call, Throwable t) {
                 Log.i("date", t.getMessage().toString());
+            }
+        });
+    }
+
+    private void send_notification(String message) {
+        Call<Appointment> x = ManagerAll.getInstance().send_notification(message);
+        x.enqueue(new Callback<Appointment>() {
+            @Override
+            public void onResponse(Call<Appointment> call, Response<Appointment> response) {
+            }
+
+            @Override
+            public void onFailure(Call<Appointment> call, Throwable t) {
             }
         });
     }
