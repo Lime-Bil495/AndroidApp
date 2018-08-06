@@ -114,6 +114,7 @@ public class AppointmentAdapter extends BaseAdapter {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                deleteAppointment(appointments.get(i).getId());
                 dialog.cancel();
             }
         });
@@ -121,7 +122,6 @@ public class AppointmentAdapter extends BaseAdapter {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteAppointment(appointments.get(i).getId());
                 dialog.cancel();
             }
         });
