@@ -21,6 +21,9 @@ public interface RestApi {
     @POST("all_appointments.php")
     Call<List<Appointment>> all_appointments(@Field("date") String date);
 
+    @GET("all_appointments_.php")
+    Call<List<Appointment>> all_appointments_();
+
     @FormUrlEncoded
     @POST("update_appointment.php")
     Call<Appointment> update_appointment(@Field("id") int id, @Field("title") String title, @Field("description") String description);

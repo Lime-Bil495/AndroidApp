@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
                         final TextView date = view.findViewById(R.id.date);
 
-                        date.setText(i2+"/"+i_m+"/"+i);
+                        date.setText(i2 + "/" + i_m + "/" + i);
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                         builder.setView(view);
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                         add.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                addAppointment(title.getText().toString(), description.getText().toString(), i2+"/"+i_m+"/"+i);
+                                addAppointment(title.getText().toString(), description.getText().toString(), i2 + "/" + i_m + "/" + i);
                                 listAppointments(i2 + "/" + i_m + "/" + i);
                                 dialog.cancel();
                             }
@@ -104,11 +104,17 @@ public class MainActivity extends AppCompatActivity {
                 if (search.getVisibility() != View.VISIBLE) {
                     search.setVisibility(View.VISIBLE);
                     do_search.setVisibility(View.VISIBLE);
-                }
-                else {
+                } else {
                     search.setVisibility(View.GONE);
                     do_search.setVisibility(View.GONE);
                 }
+            }
+        });
+
+        do_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search(search.getText().toString());
             }
         });
     }
@@ -156,12 +162,12 @@ public class MainActivity extends AppCompatActivity {
         appointment.setAdapter(appointmentAdapter);
     }
 
-    private void listAppointments(String date){
+    private void listAppointments(String date) {
         Call<List<Appointment>> x = ManagerAll.getInstance().all_appointments(date);
         x.enqueue(new Callback<List<Appointment>>() {
             @Override
             public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     appointments = response.body();
                     fillList();
                 }
@@ -179,11 +185,10 @@ public class MainActivity extends AppCompatActivity {
         x.enqueue(new Callback<Appointment>() {
             @Override
             public void onResponse(Call<Appointment> call, Response<Appointment> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Appointment created", Toast.LENGTH_SHORT).show();
                     send_notification("added");
-                }
-                else
+                } else
                     Log.i("date", "Error creating..");
             }
 
@@ -203,6 +208,34 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Appointment> call, Throwable t) {
+            }
+        });
+    }
+
+    private void search(String keyword) {
+        listAll(keyword);
+    }
+
+    private void listAll(final String keyword){
+        Call<List<Appointment>> x = ManagerAll.getInstance().all_appointments_();
+        x.enqueue(new Callback<List<Appointment>>() {
+            @Override
+            public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
+                if (response.isSuccessful()) {
+                    appointments.clear();
+                    if (response.body() != null) {
+                        for (int i = 0; i < response.body().size(); i++) {
+                            if (response.body().get(i).getTitle().contains(keyword))
+                                appointments.add(response.body().get(i));
+                        }
+                        fillList();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Appointment>> call, Throwable t) {
+
             }
         });
     }
