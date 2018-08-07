@@ -24,9 +24,9 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
-                onesignal_app_id: '2fdf0ad0-c3eb-4492-91b6-9751dc44cb0c',
+                onesignal_app_id: '75b2387d-a2ba-4458-9b33-de23c9b741ca',
                 // Project number pulled from dashboard, local value is ignored.
-                onesignal_google_project_number: 'REMOTE'
+                onesignal_google_project_number: '836050350771'
         ]
     }
     buildTypes {

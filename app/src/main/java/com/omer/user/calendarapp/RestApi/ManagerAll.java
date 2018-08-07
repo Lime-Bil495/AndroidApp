@@ -34,8 +34,8 @@ public class ManagerAll extends BaseManager {
         return call;
     }
 
-    public Call<Appointment> send_notification(String message) {
-        Call<Appointment> call = getRestApiClient().send_notification(message);
+    public Call<String> send_notification() {
+        Call<String> call = getRestApiClient().send_notification();
         return call;
     }
 

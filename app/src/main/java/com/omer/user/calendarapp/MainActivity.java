@@ -1,6 +1,9 @@
 package com.omer.user.calendarapp;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -19,7 +22,9 @@ import android.widget.Toast;
 import com.omer.user.calendarapp.RestApi.ManagerAll;
 import com.onesignal.OneSignal;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -47,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
                 .init();
         initialize();
         help();
-
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, final int i, final int i1, final int i2) {
@@ -117,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
                 search(search.getText().toString());
             }
         });
+
+        checkService();
     }
 
     private void initialize() {
@@ -128,6 +134,23 @@ public class MainActivity extends AppCompatActivity {
         searchb = findViewById(R.id.searchb);
         search = findViewById(R.id.search);
         do_search = findViewById(R.id.do_search);
+    }
+
+    private void checkService(){
+        if (!isServiceOn()) {
+            Intent intent = new Intent(getApplicationContext(), NotificationService.class);
+            startService(intent);
+        }
+    }
+
+    public boolean isServiceOn() {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (NotificationService.class.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void help() {
@@ -187,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Appointment> call, Response<Appointment> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Appointment created", Toast.LENGTH_SHORT).show();
-                    send_notification("added");
+                    //send_notification();
                 } else
                     Log.i("date", "Error creating..");
             }
@@ -199,18 +222,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void send_notification(String message) {
-        Call<Appointment> x = ManagerAll.getInstance().send_notification(message);
-        x.enqueue(new Callback<Appointment>() {
-            @Override
-            public void onResponse(Call<Appointment> call, Response<Appointment> response) {
-            }
 
-            @Override
-            public void onFailure(Call<Appointment> call, Throwable t) {
-            }
-        });
-    }
 
     private void search(String keyword) {
         listAll(keyword);
@@ -240,3 +252,5 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
+
+

@@ -54,7 +54,8 @@ public class AppointmentAdapter extends BaseAdapter {
         View layout = LayoutInflater.from(context).inflate(R.layout.event_element, viewGroup, false);
         TextView element_title = layout.findViewById(R.id.event_title);
         element_title.setText(appointments.get(i).getTitle());
-
+        TextView element_desc = layout.findViewById(R.id.event_description);
+        element_desc.setText(appointments.get(i).getDescription());
         layout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
