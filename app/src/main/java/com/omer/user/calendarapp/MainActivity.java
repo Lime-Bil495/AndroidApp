@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     ListView appointment;
     List<Appointment> appointments;
     AppointmentAdapter appointmentAdapter;
-    Button addEvent, help, searchb;
+    Button addEvent, help, searchb, do_search;
     EditText search;
 
     @Override
@@ -101,7 +101,14 @@ public class MainActivity extends AppCompatActivity {
         searchb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                search.setVisibility(View.VISIBLE);
+                if (search.getVisibility() != View.VISIBLE) {
+                    search.setVisibility(View.VISIBLE);
+                    do_search.setVisibility(View.VISIBLE);
+                }
+                else {
+                    search.setVisibility(View.GONE);
+                    do_search.setVisibility(View.GONE);
+                }
             }
         });
     }
@@ -114,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         help = findViewById(R.id.help);
         searchb = findViewById(R.id.searchb);
         search = findViewById(R.id.search);
+        do_search = findViewById(R.id.do_search);
     }
 
     private void help() {
