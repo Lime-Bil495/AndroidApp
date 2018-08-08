@@ -7,6 +7,14 @@ To-dos on Sprint 1
 - Main page designing in web <br>
 - Android Interface and functionality design <br>
 - Heroku push of initial works <br>
+<br>
+
+Sprint 2
+- Search properties on Ruby on Rails server <br>
+- Search properties on Android part <br>
+- Database connection of Android part <br>
+- Notification set on Android part <br>
+- List, delete and edit functions of Android part <br>
 
 <hr>
 
